@@ -28,43 +28,54 @@ namespace Ideastrike.Nancy.Modules
 
             Get["/"] = _ =>
             {
-                var m = Context.Model(string.Format("Admin - {0}", settings.Title));
+                var m = Context.Model(settings.Title);
                 m.Name = settings.Name;
                 m.WelcomeMessage = settings.WelcomeMessage;
                 m.HomePage = settings.HomePage;
                 m.GAnalyticsKey = settings.GAnalyticsKey;
+                if(!m.Title.Contains("Admin -"){
+                    m.Title = string.Format("Admin - {0}", settings.Title);
+                }
                 return View["Admin/Index", m];
             };
 
             Get["/users"] = _ =>
             {
-                var m = Context.Model(string.Format("Admin - {0}", settings.Title));
+                var m = Context.Model(settings.Title);
                 m.Name = settings.Name;
                 m.WelcomeMessage = settings.WelcomeMessage;
                 m.HomePage = settings.HomePage;
                 m.GAnalyticsKey = settings.GAnalyticsKey;
                 m.Users = users.GetAll();
+                 if(!m.Title.Contains("Admin -"){
+                    m.Title = string.Format("Admin - {0}", settings.Title);
+                }
                 return View["Admin/Users", m];
             };
 
             Get["/moderation"] = _ =>
             {
-                var m = Context.Model(string.Format("Admin - {0}", settings.Title));
+                var m = Context.Model(settings.Title);
                 m.Name = settings.Name;
                 m.WelcomeMessage = settings.WelcomeMessage;
                 m.HomePage = settings.HomePage;
                 m.GAnalyticsKey = settings.GAnalyticsKey;
+                 if(!m.Title.Contains("Admin -"){
+                    m.Title = string.Format("Admin - {0}", settings.Title);
+                }
                 return View["Admin/Moderation", m];
             };
 
             Get["/settings"] = _ =>
             {
-                var m = Context.Model(string.Format("Admin - {0}", settings.Title));
+                var m = Context.Model(settings.Title);
                 m.Name = settings.Name;
                 m.WelcomeMessage = settings.WelcomeMessage;
                 m.HomePage = settings.HomePage;
                 m.GAnalyticsKey = settings.GAnalyticsKey;
-
+                if(!m.Title.Contains("Admin -"){
+                    m.Title = string.Format("Admin - {0}", settings.Title);
+                }
                 return View["Admin/Settings", m];
             };
 
@@ -75,6 +86,9 @@ namespace Ideastrike.Nancy.Modules
                 settings.Name = Request.Form.yourname;
                 settings.HomePage = Request.Form.homepage;
                 settings.GAnalyticsKey = Request.Form.analyticskey;
+                 if(!m.Title.Contains("Admin -"){
+                    m.Title = string.Format("Admin - {0}", settings.Title);
+                }
                 try
                 {
                     dbContext.SaveChanges();
